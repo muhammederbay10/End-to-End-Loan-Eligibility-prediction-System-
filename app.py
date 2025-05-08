@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import joblib
 import numpy as np
-from custom_transformers import convert_to_df
+from custom_transformers import convert_to_df, add_features  
 
 
 app = Flask(__name__)
@@ -12,6 +12,7 @@ transformer = joblib.load(open('transformer.joblib', 'rb'))
 
 @app.route('/')
 def home():
+    print("Home route accessed")
     return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
@@ -44,6 +45,8 @@ def predict():
         
         result = "Eligible" if prediction[0] == 1 else "Not Eligible"
         return render_template('index.html', prediction=result)
+
+app = Flask(__name__, static_folder='static')
 
 if __name__ == '__main__':
     app.run(debug=True)
