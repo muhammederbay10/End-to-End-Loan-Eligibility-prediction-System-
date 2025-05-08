@@ -1,0 +1,89 @@
+/* Reset some default styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body styling */
+body {
+    background-color: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main container */
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Header */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Form fields */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+input[type="number"],
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s ease-in-out;
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: #3498db;
+}
+
+/* Submit button */
+input[type="submit"] {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Prediction result */
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-left: 5px solid #2ecc71;
+    font-weight: bold;
+    color: #2d3436;
+    text-align: center;
+    border-radius: 6px;
+}
