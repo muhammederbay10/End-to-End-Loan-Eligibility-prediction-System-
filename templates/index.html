@@ -1,75 +1,149 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Loan Eligibility Predictor</title>
+    <title>Erbay Bank - Loan Eligibility Check</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <header class="bank-header">
+        <div class="header-content">
+            <div class="bank-logo">
+                <i class="fas fa-university logo-icon"></i>
+                <h1>Erbay Bank</h1>
+            </div>
+            <nav class="bank-nav">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-money-check-alt"></i> Products</a>
+                <a href="#"><i class="fas fa-phone-alt"></i> Contact</a>
+            </nav>
+        </div>
+    </header>
+
     <div class="container">
-        <h1>Loan Eligibility Prediction</h1>
+        <div class="loan-header">
+            <h2><i class="fas fa-hand-holding-usd"></i>Machine Learning model Loan Eligibility Check</h2>
+            <p class="subtitle">Complete the form below to check your loan eligibility</p>
+        </div>
+        
         <form action="{{ url_for('predict') }}" method="post">
-            <label for="Gender">Gender:</label>
-            <select name="Gender" id="Gender" required>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
+            <div class="form-columns">
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="Gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                        <select name="Gender" id="Gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
 
-            <label for="Married">Married:</label>
-            <select name="Married" id="Married" required>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
+                    <div class="form-group">
+                        <label for="Married"><i class="fas fa-ring"></i> Married</label>
+                        <select name="Married" id="Married" required>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
 
-            <label for="Dependents">Dependents:</label>
-            <input type="text" name="Dependents" required>
+                    <div class="form-group">
+                        <label for="Dependents"><i class="fas fa-child"></i> Dependents</label>
+                        <input type="text" name="Dependents" required>
+                    </div>
 
-            <label for="Education">Education:</label>
-            <select name="Education" id="Education" required>
-                <option value="Graduate">Graduate</option>
-                <option value="Not Graduate">Not Graduate</option>
-            </select>
+                    <div class="form-group">
+                        <label for="Education"><i class="fas fa-graduation-cap"></i> Education</label>
+                        <select name="Education" id="Education" required>
+                            <option value="Graduate">Graduate</option>
+                            <option value="Not Graduate">Not Graduate</option>
+                        </select>
+                    </div>
 
-            <label for="Self_Employed">Self Employed:</label>
-            <select name="Self_Employed" id="Self_Employed" required>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
+                    <!-- Added Self Employed -->
+                    <div class="form-group">
+                        <label for="Self_Employed"><i class="fas fa-briefcase"></i> Self Employed</label>
+                        <select name="Self_Employed" id="Self_Employed" required>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
 
-            <label for="ApplicantIncome">Applicant Income:</label>
-            <input type="number" name="ApplicantIncome" required>
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="ApplicantIncome"><i class="fas fa-wallet"></i> Monthly Income ($)</label>
+                        <input type="number" name="ApplicantIncome" required>
+                    </div>
 
-            <label for="CoapplicantIncome">Coapplicant Income:</label>
-            <input type="number" name="CoapplicantIncome" required>
+                    <div class="form-group">
+                        <label for="CoapplicantIncome"><i class="fas fa-wallet"></i> Co-applicant Income ($)</label>
+                        <input type="number" name="CoapplicantIncome" required>
+                    </div>
 
-            <label for="LoanAmount">Loan Amount:</label>
-            <input type="number" name="LoanAmount" required>
+                    <div class="form-group">
+                        <label for="LoanAmount"><i class="fas fa-hand-holding-usd"></i> Loan Amount ($)</label>
+                        <input type="number" name="LoanAmount" required>
+                    </div>
 
-            <label for="Loan_Amount_Term">Loan Amount Term:</label>
-            <input type="number" name="Loan_Amount_Term" required>
+                    <div class="form-group">
+                        <label for="Loan_Amount_Term"><i class="fas fa-calendar-alt"></i> Loan Term (months)</label>
+                        <input type="number" name="Loan_Amount_Term" required>
+                    </div>
 
-            <label for="Credit_History">Credit History:</label>
-            <select name="Credit_History" id="Credit_History" required>
-                <option value="1">1</option>
-                <option value="0">0</option>
-            </select>
+                    <!-- Added Credit History -->
+                    <div class="form-group">
+                        <label for="Credit_History"><i class="fas fa-history"></i> Credit History</label>
+                        <select name="Credit_History" id="Credit_History" required>
+                            <option value="1">Good (1)</option>
+                            <option value="0">Bad (0)</option>
+                        </select>
+                    </div>
 
-            <label for="Property_Area">Property Area:</label>
-            <select name="Property_Area" id="Property_Area" required>
-                <option value="Urban">Urban</option>
-                <option value="Semiurban">Semiurban</option>
-                <option value="Rural">Rural</option>
-            </select>
+                    <!-- Added Property Area -->
+                    <div class="form-group">
+                        <label for="Property_Area"><i class="fas fa-map-marker-alt"></i> Property Area</label>
+                        <select name="Property_Area" id="Property_Area" required>
+                            <option value="Urban">Urban</option>
+                            <option value="Semiurban">Semi-Urban</option>
+                            <option value="Rural">Rural</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-            <button type="submit">Predict</button>
+            <div class="form-footer">
+                <button type="submit" class="bank-button">
+                    <i class="fas fa-calculator"></i> Check Eligibility
+                </button>
+                <div class="security-info">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit SSL Encryption</span>
+                </div>
+            </div>
         </form>
 
-        <!-- Display prediction result -->
-        {% if prediction %}
-        <div class="result">
-            <p>{{ prediction }}</p>
-        </div>
+    {% if prediction %}
+        <div class="result {{ 'approved' if 'Loan Approved' in prediction else 'denied' }}">
+            <i class="fas fa-{{ 'check-circle' if 'Loan Approved' in prediction else 'times-circle' }}"></i>
+            <h3>{{ prediction }}</h3>
+            {% if 'Loan Approved' in prediction %}
+                <p>Congratulations! Our team will contact you shortly.</p>
+            {% else %}
+                 <p>Please contact our loan advisors for alternative options.</p>
+             {% endif %}
+         </div>
         {% endif %}
     </div>
+
+    <footer class="bank-footer">
+        <p>© 2023 Erbay Bank. Member FDIC. Equal Housing Lender.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Security Center</a>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,89 +1,242 @@
-/* Reset some default styling */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Updated CSS - Proper Centering */
+:root {
+    --primary: #004aad;
+    --secondary: #ffd700;
+    --background: #f8f9fa;
+    --surface: #ffffff;
+    --text: #2c3e50;
+    --border: #e0e0e0;
+    --success: #27ae60;
+    --warning: #e74c3c;
 }
 
-/* Body styling */
 body {
-    background-color: #f4f6f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* Main container */
-.container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 500px;
-}
-
-/* Header */
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #2c3e50;
-}
-
-/* Form fields */
-form {
+    background: var(--background);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
-label {
-    margin-top: 10px;
-    margin-bottom: 5px;
+.bank-header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.bank-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    font-size: 2rem;
+}
+
+.bank-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.bank-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.bank-nav a:hover {
+    opacity: 0.8;
+}
+
+.container {
+    margin: 100px auto 2rem;
+    background: var(--surface);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+    max-width: 800px;
+    width: 90%;
+}
+
+.loan-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.subtitle {
+    color: #7f8c8d;
+    margin-top: 0.5rem;
+}
+
+.form-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
     font-weight: 600;
-    color: #34495e;
+    color: var(--primary);
 }
 
 input[type="number"],
 select {
-    padding: 10px;
-    border: 1px solid #ccc;
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--border);
     border-radius: 8px;
-    outline: none;
-    transition: 0.3s ease-in-out;
+    background: white;
+    color: var(--text);
+    transition: border-color 0.3s;
 }
 
 input[type="number"]:focus,
 select:focus {
-    border-color: #3498db;
+    border-color: var(--primary);
+    outline: none;
 }
 
-/* Submit button */
-input[type="submit"] {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #3498db;
+.bank-button {
+    background: linear-gradient(135deg, var(--primary), #003b8a);
     color: white;
-    font-weight: bold;
+    padding: 1rem 2rem;
     border: none;
     border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s;
+    display: block;
+    margin: 0 auto;
 }
 
-input[type="submit"]:hover {
-    background-color: #2980b9;
+.bank-button:hover {
+    transform: translateY(-2px);
 }
 
-/* Prediction result */
+.form-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.security-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #7f8c8d;
+}
+
 .result {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #ecf0f1;
-    border-left: 5px solid #2ecc71;
-    font-weight: bold;
-    color: #2d3436;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 10px;
     text-align: center;
-    border-radius: 6px;
+    max-width: 80%;
+}
+
+.result.approved {
+    background: #e8f6ef;
+    border: 2px solid var(--success);
+    color: var(--success);
+}
+
+.result.denied {
+    background: #fdedec;
+    border: 2px solid var(--warning);
+    color: var(--warning);
+}
+
+.result i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.bank-footer {
+    background: var(--text);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .bank-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .container {
+        margin-top: 140px;
+        width: 95%;
+    }
+    
+    .form-columns {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    
+    .form-footer {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .result {
+        margin: 1rem auto;
+        max-width: 90%;
+    }
 }

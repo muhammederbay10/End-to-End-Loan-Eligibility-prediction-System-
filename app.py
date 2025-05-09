@@ -7,11 +7,18 @@ from custom_transformers import convert_to_df
 app = Flask(__name__, static_folder='static')
 
 model = joblib.load('model/model.joblib')
-# transformer = joblib.load('model/transformer.joblib')
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.errorhandler(400)
+def bad_request(e):
+    print("=== 400 Bad Request ===")
+    print("Headers:", request.headers)
+    print("Form Data:", request.form)
+    print("Raw Body:", request.get_data())
+    return "Bad Request – check server logs", 400
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -50,11 +57,6 @@ def predict():
         ]
         df_features = convert_to_df(features, columns)
 
-        # # Add derived features (replicating notebook's add_features)
-        # df_features['TotalIncome'] = df_features['ApplicantIncome'] + df_features['CoapplicantIncome']
-        # df_features['EMI'] = df_features['LoanAmount'] / df_features['Loan_Amount_Term'].replace(0, 1)
-        # df_features['Balance Income'] = df_features['TotalIncome'] - df_features['EMI']
-
         # Debugging
         print("df_features columns:", df_features.columns.tolist())
         print("Number of features:", df_features.shape[1])
@@ -78,10 +80,9 @@ def predict():
         if df_features.shape[1] != 11:
             raise ValueError(f"Expected 12 features, got {df_features.shape[1]}: {df_features.columns.tolist()}")
 
-        # Transform and predict
-        # transformed_features = transformer.transform(df_features)
+        # Predict
         prediction = model.predict(df_features)
-        result = "Eligible" if prediction[0] == 1 else "Not Eligible"
+        result = "Loan Approved✅" if prediction[0] == 1 else "Loan Not Approved❌"
         return render_template('index.html', prediction=result)
     except Exception as e:
         return render_template('index.html', prediction=f"Error: {str(e)}")
