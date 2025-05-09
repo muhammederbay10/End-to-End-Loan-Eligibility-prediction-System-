@@ -137,13 +137,13 @@ An end-to-end machine learning pipeline that predicts loan eligibility based on 
 
 ## 📊 Model Performance
 
-| Model                  | Accuracy | F1-Score |
+| Model                  | Recall | F1-Score |
 | ---------------------- | -------- | -------- |
-| Support Vector Machine | 0.80     | 0.88     |
-| Random Forest          | 0.78     | 0.85     |
-| Logistic Regression    | 0.75     | 0.82     |
-| Decision Tree          | 0.72     | 0.78     |
-| XGBoost                | 0.79     | 0.87     |
+| Support Vector Machine | 1.0      | 0.86     |
+| Random Forest          | 0.9125   | 0.829    |
+| Logistic Regression    | 0.9875   | 0.85     |
+| Decision Tree          | 0.975    | 0.847    |
+| XGBoost                | 0.93     | 0.83     |
 
 ---
 
