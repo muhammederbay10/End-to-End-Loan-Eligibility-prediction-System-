@@ -1,153 +1,183 @@
-# 🏦 End-to-End Loan Eligibility Prediction System
+# 🏦 Loan Eligibility Prediction System
 
-This project presents a complete machine learning pipeline for predicting loan eligibility based on applicant data. It covers everything from data preprocessing and exploratory data analysis (EDA) to model training, hyperparameter tuning, evaluation, and feature importance analysis.
+An end-to-end machine learning pipeline that predicts loan eligibility based on applicant information. It encompasses data ingestion, preprocessing, EDA, feature engineering, model training, evaluation, and deployment as a Flask web application.
 
 ---
+
+## 📋 Table of Contents
+
+1. [🚀 Features](#-features)
+2. [📁 Project Structure](#-project-structure)
+3. [⚙️ Installation](#️-installation)
+4. [🚀 Usage](#-usage)
+5. [🔍 Workflow Overview](#-workflow-overview)
+6. [🗂️ Dataset](#️-dataset)
+7. [📊 Model Performance](#-model-performance)
+8. [🔮 Future Improvements](#-future-improvements)
+9. [🤝 Contributing](#-contributing)
+10. [📄 License](#-license)
+11. [✉️ Contact](#️-contact)
+
+---
+
+## 🚀 Features
+
+* **End-to-End Pipeline**: From raw data ingestion to deployment.
+* **Robust Preprocessing**: Handles missing values, encodes categoricals, scales numerics.
+* **Feature Engineering**: Derives new features such as total income and EMI.
+* **Model Zoo**: Supports Decision Tree, Random Forest, Logistic Regression, SVC, and XGBoost.
+* **Hyperparameter Tuning**: Uses `GridSearchCV` with cross-validation.
+* **Comprehensive EDA**: Visualizations for distributions and correlations.
+* **Flask Web App**: User-friendly interface for real-time predictions.
 
 ## 📁 Project Structure
 
-* **`eligibility prediction.ipynb`**: Main Jupyter Notebook containing the entire end-to-end workflow.
-* **`train_u6lujuX_CVtuZ9i.csv`**: Dataset used for training and evaluating models.
+```
+├── app.py                    # Flask application for deployment
+├── custom_transformers.py    # Custom DataFrame converter
+├── eligibility_prediction.ipynb  # Jupyter Notebook with full ML workflow
+├── README.md                 # Project documentation
+├── requirements.txt          # Python dependencies
+├── Data/
+│   └── Bank_loan_data.csv    # Dataset for training and testing
+├── model/
+│   └── model.joblib          # Saved pipeline (preprocessing + model)
+├── static/
+│   └── style.css             # CSS for the web interface
+└── templates/
+    └── index.html            # HTML template for user input
+```
 
 ---
 
-## 🚀 Workflow Overview
+## ⚙️ Installation
 
-### 1. Data Loading
-
-* The dataset is loaded using **pandas** from `train_u6lujuX_CVtuZ9i.csv`.
-
-### 2. Data Preprocessing
-
-* Dropped irrelevant columns such as `Loan_ID`.
-* Handled missing values using `SimpleImputer`.
-* Applied one-hot encoding to categorical variables.
-* Built preprocessing pipelines using `ColumnTransformer`.
-
-### 3. Exploratory Data Analysis (EDA)
-
-* Visualized distributions of categorical and numerical features using `seaborn` and `matplotlib`.
-* Explored relationships such as:
-
-  * Loan amount vs. applicant income
-  * Loan status across income groups and property areas
-
-### 4. Feature Engineering
-
-Created additional informative features:
-
-* `TotalIncome`: Sum of `ApplicantIncome` and `CoapplicantIncome`
-* `EMI`: Estimated monthly installment (`LoanAmount` / `Loan_Amount_Term`)
-* `LoanAmount_log`: Log-transformed loan amount for normalization
-
-### 5. Model Building
-
-Constructed separate pipelines for the following models:
-
-* ✅ Logistic Regression
-* 🌳 Decision Tree Classifier
-* 🌲 Random Forest Classifier
-* 💡 XGBoost Classifier
-* 🔍 Support Vector Classifier (SVC)
-
-Each model pipeline includes preprocessing and training steps.
-
-### 6. Hyperparameter Tuning
-
-Used **`GridSearchCV`** to optimize hyperparameters for:
-
-* Decision Tree
-* Random Forest
-* XGBoost
-
-Cross-validation (`cv=5`) was applied for more reliable results.
-
-### 7. Model Evaluation
-
-Models were evaluated on both training and test sets using:
-
-* Accuracy
-* Precision
-* Recall
-* F1 Score
-
-Results were compared to check for overfitting and model robustness.
-
-### 8. Feature Importance
-
-* Feature importance was extracted and visualized for the **Random Forest model** using `.feature_importances_`.
-* A horizontal bar chart shows the most influential features in predicting loan eligibility.
-
----
-
-## 📦 Libraries Used
-
-* `pandas`
-* `numpy`
-* `matplotlib`
-* `seaborn`
-* `scikit-learn`
-* `xgboost`
-* `ydata-profiling`
-
----
-
-## 🧪 How to Run
-
-1. **Install dependencies:**
+1. **Clone the repository:**
 
    ```bash
-   pip install pandas numpy matplotlib seaborn scikit-learn xgboost ydata-profiling
+   git clone https://github.com/muhammederbay10/End-to-End-Loan-Eligibility-prediction-System-.git
+   cd End-to-End-Loan-Eligibility-prediction-System-
+   ```
+2. **Create & activate a virtual environment (optional but recommended):**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   ```
+3. **Install dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
    ```
 
-2. **Open the notebook:**
+---
 
-   * Launch Jupyter Notebook (or JupyterLab)
-   * Open `eligibility prediction.ipynb`
-   * Run all cells in sequence to reproduce the full analysis and model training
+## 🚀 Usage
+
+1. **Training & Evaluation (Notebook):**
+
+   * Open `eligibility_prediction.ipynb` in JupyterLab or Notebook.
+   * Run all cells to preprocess data, train models, and visualize results.
+
+2. **Deploy Flask App:**
+
+   ```bash
+   python app.py
+   ```
+
+   * Navigate to `http://127.0.0.1:5000` in your browser.
+   * Fill out the form with applicant details and click **Predict**.
 
 ---
 
-## 📊 Dataset Overview
+## 🔍 Workflow Overview
 
-The dataset includes:
+1. **Data Loading**: Read `Data/Bank_loan_data.csv` using pandas.
+2. **Preprocessing**:
 
-**Categorical Features:**
+   * Drop `Loan_ID`.
+   * Impute missing values (mean for numeric, mode for categorical).
+   * Encode categoricals with One-Hot Encoding via `ColumnTransformer`.
+   * Scale numeric features when needed.
+3. **Exploratory Data Analysis (EDA)**
 
-* `Gender`
-* `Married`
-* `Dependents`
-* `Education`
-* `Self_Employed`
-* `Property_Area`
+   * Visualize distributions (histograms, count plots).
+   * Correlation heatmaps and pair plots.
+4. **Feature Engineering**:
 
-**Numerical Features:**
+   * `TotalIncome` = `ApplicantIncome` + `CoapplicantIncome`.
+   * `EMI` = `LoanAmount / Loan_Amount_Term`.
+5. **Modeling**:
 
-* `ApplicantIncome`
-* `CoapplicantIncome`
-* `LoanAmount`
-* `Loan_Amount_Term`
-* `Credit_History`
+   * Build pipelines combining preprocessing and classifier.
+   * Evaluate on train/test split and cross-validation.
+6. **Hyperparameter Tuning**:
 
-**Target Variable:**
+   * Use `GridSearchCV` (cv=5) for each model.
+7. **Evaluation**:
 
-* `Loan_Status` (`Y` = eligible, `N` = not eligible)
+   * Report Accuracy, Precision, Recall, F1-Score.
+8. **Deployment**:
+
+   * Save best pipeline with `joblib`.
+   * Serve via Flask for web-based predictions.
 
 ---
 
-## ✅ Results
+## 🗂️ Dataset
 
-* The best-performing model (based on F1 score) and its optimal hyperparameters are printed and highlighted in the notebook.
-* Evaluation metrics for all models are compared in tabular and graphical formats.
-* The final model shows strong generalization ability with balanced performance across precision, recall, and F1.
+* **Source:** Contains 614 training samples from public loan datasets.
+* **Features:**
+
+  * **Categorical:** Gender, Married, Dependents, Education, Self\_Employed, Property\_Area
+  * **Numerical:** ApplicantIncome, CoapplicantIncome, LoanAmount, Loan\_Amount\_Term, Credit\_History
+  * **Target:** Loan\_Status (`Y` = eligible, `N` = not eligible)
+
+---
+
+## 📊 Model Performance
+
+| Model                  | Accuracy | F1-Score |
+| ---------------------- | -------- | -------- |
+| Support Vector Machine | 0.80     | 0.88     |
+| Random Forest          | 0.78     | 0.85     |
+| Logistic Regression    | 0.75     | 0.82     |
+| Decision Tree          | 0.72     | 0.78     |
+| XGBoost                | 0.79     | 0.87     |
 
 ---
 
 ## 🔮 Future Improvements
 
-* Enhance feature engineering (e.g., interaction terms, domain-specific ratios)
-* Explore additional models like LightGBM or CatBoost
-* Apply advanced techniques for handling class imbalance
-* Deploy the model as a web application using Flask or Streamlit
-* Integrate with APIs for real-time prediction on new loan applications
+* Enhance feature engineering (interaction terms, polynomial features).
+* Integrate advanced resampling techniques (SMOTE, ADASYN) for class imbalance.
+* Add LightGBM & CatBoost for comparative benchmarks.
+* Dockerize the application for portability.
+* Deploy to cloud platforms (Heroku, AWS Elastic Beanstalk).
+* Expose a REST API for batch predictions.
 
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/YourFeature`.
+3. Commit your changes: `git commit -m 'Add new feature'`.
+4. Push to your branch: `git push origin feature/YourFeature`.
+5. Open a Pull Request.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://github.com/muhammederbay10/End-to-End-Loan-Eligibility-prediction-System-/blob/main/LICENSE).
+
+---
+
+## ✉️ Contact
+
+Developed by **Muhammed Erbay** – [GitHub Profile](https://github.com/muhammederbay10)
+
+Feel free to reach out with any questions or feedback!
