@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Loan Eligibility Predictor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Loan Eligibility Prediction</h1>
-        <form action="/predict" method="post">
+        <form action="{{ url_for('predict') }}" method="post">
             <label for="Gender">Gender:</label>
-            <select name="Gender" id="Gender">
+            <select name="Gender" id="Gender" required>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
 
             <label for="Married">Married:</label>
-            <select name="Married" id="Married">
+            <select name="Married" id="Married" required>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
@@ -25,13 +25,13 @@
             <input type="text" name="Dependents" required>
 
             <label for="Education">Education:</label>
-            <select name="Education" id="Education">
+            <select name="Education" id="Education" required>
                 <option value="Graduate">Graduate</option>
                 <option value="Not Graduate">Not Graduate</option>
             </select>
 
             <label for="Self_Employed">Self Employed:</label>
-            <select name="Self_Employed" id="Self_Employed">
+            <select name="Self_Employed" id="Self_Employed" required>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
@@ -49,13 +49,13 @@
             <input type="number" name="Loan_Amount_Term" required>
 
             <label for="Credit_History">Credit History:</label>
-            <select name="Credit_History" id="Credit_History">
+            <select name="Credit_History" id="Credit_History" required>
                 <option value="1">1</option>
                 <option value="0">0</option>
             </select>
 
             <label for="Property_Area">Property Area:</label>
-            <select name="Property_Area" id="Property_Area">
+            <select name="Property_Area" id="Property_Area" required>
                 <option value="Urban">Urban</option>
                 <option value="Semiurban">Semiurban</option>
                 <option value="Rural">Rural</option>
@@ -63,6 +63,13 @@
 
             <button type="submit">Predict</button>
         </form>
+
+        <!-- Display prediction result -->
+        {% if prediction %}
+        <div class="result">
+            <p>{{ prediction }}</p>
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>
