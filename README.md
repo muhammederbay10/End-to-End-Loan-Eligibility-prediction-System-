@@ -1,51 +1,61 @@
 # 🏦 Loan Eligibility Prediction System
 
-An end-to-end machine learning pipeline that predicts loan eligibility based on applicant information. It encompasses data ingestion, preprocessing, EDA, feature engineering, model training, evaluation, and deployment as a Flask web application.
+Live Demo: [https://web-production-53c65.up.railway.app/](https://web-production-53c65.up.railway.app/)
+
+An end-to-end machine learning pipeline that predicts loan eligibility based on applicant data. From data ingestion and preprocessing to model training, evaluation, and deployment as an interactive Flask web application.
 
 ---
 
 ## 📋 Table of Contents
 
-1. [🚀 Features](#-features)
-2. [📁 Project Structure](#-project-structure)
-3. [⚙️ Installation](#️-installation)
-4. [🚀 Usage](#-usage)
-5. [🔍 Workflow Overview](#-workflow-overview)
-6. [🗂️ Dataset](#️-dataset)
-7. [📊 Model Performance](#-model-performance)
-8. [🔮 Future Improvements](#-future-improvements)
-9. [🤝 Contributing](#-contributing)
-10. [📄 License](#-license)
-11. [✉️ Contact](#️-contact)
+1. [✨ Live Demo](#-live-demo)
+2. [🚀 Features](#-features)
+3. [📁 Project Structure](#-project-structure)
+4. [⚙️ Installation](#️-installation)
+5. [🚀 Usage](#-usage)
+6. [🔍 Workflow Overview](#-workflow-overview)
+7. [🗂️ Dataset](#️-dataset)
+8. [📊 Model Performance](#-model-performance)
+9. [🔮 Future Improvements](#-future-improvements)
+10. [🤝 Contributing](#-contributing)
+11. [📄 License](#-license)
+12. [✉️ Contact](#️-contact)
+
+---
+
+## ✨ Live Demo
+
+Try it out: [https://web-production-53c65.up.railway.app/](https://web-production-53c65.up.railway.app/)
 
 ---
 
 ## 🚀 Features
 
-* **End-to-End Pipeline**: From raw data ingestion to deployment.
-* **Robust Preprocessing**: Handles missing values, encodes categoricals, scales numerics.
-* **Feature Engineering**: Derives new features such as total income and EMI.
-* **Model Zoo**: Supports Decision Tree, Random Forest, Logistic Regression, SVC, and XGBoost.
-* **Hyperparameter Tuning**: Uses `GridSearchCV` with cross-validation.
-* **Comprehensive EDA**: Visualizations for distributions and correlations.
-* **Flask Web App**: User-friendly interface for real-time predictions.
+* **End-to-End Pipeline**: Covers data ingestion, cleaning, feature engineering, model training, evaluation, and deployment.
+* **Data Preprocessing**: Handles missing values, encodes categorical variables, and scales numerical features.
+* **Model Zoo**: Includes Decision Tree, Random Forest, Logistic Regression, SVC, and XGBoost.
+* **Hyperparameter Tuning**: Utilizes `GridSearchCV` for optimized model parameters.
+* **Interactive Web App**: Flask-based interface for real-time eligibility checks.
+
+---
 
 ## 📁 Project Structure
 
 ```
-├── app.py                    # Flask application for deployment
-├── custom_transformers.py    # Custom DataFrame converter
-├── eligibility_prediction.ipynb  # Jupyter Notebook with full ML workflow
-├── README.md                 # Project documentation
-├── requirements.txt          # Python dependencies
+├── app.py                      # Flask application server
+├── custom_transformers.py      # Helper for data conversion
+├── eligibility_prediction.ipynb# Notebook with full ML workflow
+├── README.md                   # Project documentation
+├── requirements.txt            # Python dependencies
 ├── Data/
-│   └── Bank_loan_data.csv    # Dataset for training and testing
+│   ├── loan-train.csv          # Training dataset
+│   └── loan-test.csv           # Testing dataset
 ├── model/
-│   └── model.joblib          # Saved pipeline (preprocessing + model)
+│   └── model.joblib            # Saved ML pipeline
 ├── static/
-│   └── style.css             # CSS for the web interface
+│   └── style.css               # CSS styling
 └── templates/
-    └── index.html            # HTML template for user input
+    └── index.html              # HTML template for user input
 ```
 
 ---
@@ -58,11 +68,11 @@ An end-to-end machine learning pipeline that predicts loan eligibility based on 
    git clone https://github.com/muhammederbay10/End-to-End-Loan-Eligibility-prediction-System-.git
    cd End-to-End-Loan-Eligibility-prediction-System-
    ```
-2. **Create & activate a virtual environment (optional but recommended):**
+2. **Create & activate a virtual environment (recommended):**
 
    ```bash
    python3 -m venv venv
-   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   source venv/bin/activate   # Windows: venv\Scripts\activate
    ```
 3. **Install dependencies:**
 
@@ -74,105 +84,118 @@ An end-to-end machine learning pipeline that predicts loan eligibility based on 
 
 ## 🚀 Usage
 
-1. **Training & Evaluation (Notebook):**
+### Live Demo
 
-   * Open `eligibility_prediction.ipynb` in JupyterLab or Notebook.
-   * Run all cells to preprocess data, train models, and visualize results.
+Experience the application online without any local setup:
 
-2. **Deploy Flask App:**
+```text
+https://web-production-53c65.up.railway.app/
+```
+
+### Local Development
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/muhammederbay10/End-to-End-Loan-Eligibility-prediction-System-.git
+   cd End-to-End-Loan-Eligibility-prediction-System-
+   ```
+2. **Create & activate a virtual environment (optional but recommended):**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate   # Windows: venv\Scripts\activate
+   ```
+3. **Install dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Run the Flask server:**
 
    ```bash
    python app.py
    ```
 
-   * Navigate to `http://127.0.0.1:5000` in your browser.
-   * Fill out the form with applicant details and click **Predict**.
-
 ---
 
 ## 🔍 Workflow Overview
 
-1. **Data Loading**: Read `Data/Bank_loan_data.csv` using pandas.
-2. **Preprocessing**:
+This project follows a structured end-to-end machine learning process:
 
-   * Drop `Loan_ID`.
-   * Impute missing values (mean for numeric, mode for categorical).
-   * Encode categoricals with One-Hot Encoding via `ColumnTransformer`.
-   * Scale numeric features when needed.
-3. **Exploratory Data Analysis (EDA)**
+1. **Data Loading**
+   Load the raw datasets from `Data/loan-train.csv` and `Data/loan-test.csv` using pandas.
 
-   * Visualize distributions (histograms, count plots).
-   * Correlation heatmaps and pair plots.
-4. **Feature Engineering**:
+2. **Data Cleaning & Imputation**
 
-   * `TotalIncome` = `ApplicantIncome` + `CoapplicantIncome`.
-   * `EMI` = `LoanAmount / Loan_Amount_Term`.
-5. **Modeling**:
+   * Remove irrelevant columns (e.g., `Loan_ID`).
+   * Impute missing values: mean for numerical features, mode for categorical features.
 
-   * Build pipelines combining preprocessing and classifier.
-   * Evaluate on train/test split and cross-validation.
-6. **Hyperparameter Tuning**:
+3. **Encoding & Scaling**
+   Apply `ColumnTransformer` to:
 
-   * Use `GridSearchCV` (cv=5) for each model.
-7. **Evaluation**:
+   * One-Hot Encode categorical variables.
+   * Scale numerical features when appropriate.
 
-   * Report Accuracy, Precision, Recall, F1-Score.
-8. **Deployment**:
+4. **Modeling & Hyperparameter Tuning**
 
-   * Save best pipeline with `joblib`.
-   * Serve via Flask for web-based predictions.
+   * Build pipelines that combine preprocessing and classifiers (Decision Tree, Random Forest, Logistic Regression, SVC, XGBoost).
+   * Optimize model parameters via `GridSearchCV` with cross-validation.
+
+5. **Evaluation**
+   Assess models on a hold-out test set using metrics such as accuracy, precision, recall, and F1-score. Select the best-performing pipeline.
+
+6. **Deployment**
+   Serialize the final pipeline with `joblib` and deploy through Flask for real-time web predictions.
 
 ---
 
 ## 🗂️ Dataset
 
-* **Source:** Contains 614 training samples from public loan datasets.
-* **Features:**
-
-  * **Categorical:** Gender, Married, Dependents, Education, Self\_Employed, Property\_Area
-  * **Numerical:** ApplicantIncome, CoapplicantIncome, LoanAmount, Loan\_Amount\_Term, Credit\_History
-  * **Target:** Loan\_Status (`Y` = eligible, `N` = not eligible)
+* **Files:** `loan-train.csv` (614 samples), `loan-test.csv` (368 samples)
+* **Categorical:** Gender, Married, Dependents, Education, Self\_Employed, Property\_Area
+* **Numerical:** ApplicantIncome, CoapplicantIncome, LoanAmount, Loan\_Amount\_Term, Credit\_History
+* **Target:** Loan\_Status (`Y` = approved, `N` = not approved)
 
 ---
 
 ## 📊 Model Performance
 
-| Model                  | Recall | F1-Score |
-| ---------------------- | -------- | -------- |
-| Support Vector Machine | 1.0      | 0.86     |
-| Random Forest          | 0.9125   | 0.829    |
-| Logistic Regression    | 0.9875   | 0.85     |
-| Decision Tree          | 0.975    | 0.847    |
-| XGBoost                | 0.93     | 0.83     |
+| Model                | Recall | F1-Score |
+| -------------------- | ------ | -------- |
+| Logistic Regression  | 0.98   | 0.90     |
+| Random Forest        | 0.97   | 0.90     |
+| Support Vector Mach. | 0.95   | 0.89     |
+| XGBoost              | 0.90   | 0.88     |
+| Decision Tree        | 0.94   | 0.87     |
 
 ---
 
 ## 🔮 Future Improvements
 
-* Enhance feature engineering (interaction terms, polynomial features).
-* Integrate advanced resampling techniques (SMOTE, ADASYN) for class imbalance.
-* Add LightGBM & CatBoost for comparative benchmarks.
-* Dockerize the application for portability.
-* Deploy to cloud platforms (Heroku, AWS Elastic Beanstalk).
-* Expose a REST API for batch predictions.
+* Integrate LightGBM & CatBoost for benchmarking.
+* Apply advanced resampling (SMOTE, ADASYN) for imbalance.
+* Add REST API endpoints for batch predictions.
+* Containerize with Docker for portability.
+* Expand deployment to AWS, GCP, or Azure.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please:
-
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature/YourFeature`.
-3. Commit your changes: `git commit -m 'Add new feature'`.
-4. Push to your branch: `git push origin feature/YourFeature`.
-5. Open a Pull Request.
+Contributions welcome! Please fork, create a branch, commit, and open a PR.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](https://github.com/muhammederbay10/End-to-End-Loan-Eligibility-prediction-System-/blob/main/LICENSE).
+Licensed under the [MIT License](LICENSE).
+
+---
+
+## ✉️ Contact
+
+Muhammed Erbay – [GitHub](https://github.com/muhammederbay10) | Email: [muhammad.erbay2003@gmail.com](mailto:muhammad.erbay2003@gmail.com)
 
 ---
 
