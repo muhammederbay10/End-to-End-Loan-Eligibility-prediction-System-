@@ -4,16 +4,18 @@ import numpy as np
 import pandas as pd
 from custom_transformers import convert_to_df
 import sklearn
+import sys
+
+# Monkey-patch convert_to_df into __main__ so unpickling can find it
+sys.modules['__main__'].convert_to_df = convert_to_df
 
 print(f"Loaded scikit-learn: {sklearn.__version__}")
 
-# Load model with context for version compatibility
-with open('model/model.joblib', 'rb') as f:
-    model = joblib.load(f)
-
 app = Flask(__name__, static_folder='static')
 
-model = joblib.load('model/model.joblib')
+# Load the trained pipeline
+with open('model/model.joblib', 'rb') as f:
+    model = joblib.load(f)
 
 @app.route('/')
 def home():
@@ -43,7 +45,7 @@ def predict():
         credit_history = float(request.form['Credit_History'])
         property_area = request.form['Property_Area']
 
-        # Create DataFrame
+        # Prepare feature dict and DataFrame
         features = {
             'Gender': [gender],
             'Married': [married],
@@ -64,30 +66,25 @@ def predict():
         ]
         df_features = convert_to_df(features, columns)
 
-        # Debugging
+        # Debug info
         print("df_features columns:", df_features.columns.tolist())
         print("Number of features:", df_features.shape[1])
 
-        # Expected columns for transformer (match notebook input)
+        # Expected transformer input columns
         selected_columns = [
             'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
             'Credit_History', 'Property_Area', 'ApplicantIncome',
-            'CoapplicantIncome','LoanAmount','Loan_Amount_Term'
+            'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term'
         ]
-
-        # Check for missing columns
         missing_columns = [col for col in selected_columns if col not in df_features.columns]
         if missing_columns:
             raise ValueError(f"Missing columns: {missing_columns}")
 
-        # Select transformer columns
         df_features = df_features[selected_columns]
+        if df_features.shape[1] != len(selected_columns):
+            raise ValueError(f"Expected {len(selected_columns)} features, got {df_features.shape[1]}")
 
-        # Verify feature count
-        if df_features.shape[1] != 11:
-            raise ValueError(f"Expected 12 features, got {df_features.shape[1]}: {df_features.columns.tolist()}")
-
-        # Predict
+        # Make prediction
         prediction = model.predict(df_features)
         result = "Loan Approved✅" if prediction[0] == 1 else "Loan Not Approved❌"
         return render_template('index.html', prediction=result)
