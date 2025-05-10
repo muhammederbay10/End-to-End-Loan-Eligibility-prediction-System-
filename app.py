@@ -3,6 +3,13 @@ import joblib
 import numpy as np
 import pandas as pd
 from custom_transformers import convert_to_df
+import sklearn
+
+print(f"Loaded scikit-learn: {sklearn.__version__}")
+
+# Load model with context for version compatibility
+with open('model/model.joblib', 'rb') as f:
+    model = joblib.load(f)
 
 app = Flask(__name__, static_folder='static')
 
